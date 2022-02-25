@@ -6,7 +6,7 @@
 
 From project root...
 - `npm i`
-- `node index.js`
+- `node server.js`
 
 Can be reached at [http://localhost:4000/graphql](http://localhost:4000/graphql)
 
