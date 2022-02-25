@@ -2,8 +2,18 @@
 
 ## To run
 
-`npm i`
+### via Terminal
 
-`node index.js`
+From project root...
+- `npm i`
+- `node index.js`
 
-Can be reached at localhost:4000
+Can be reached at [http://localhost:4000/graphql](http://localhost:4000/graphql)
+
+### via Docker
+
+From project root...
+- `docker build -t scrum-poker-server:latest .`
+- `docker run -p 4000:4000 -d scrum-poker-server:latest`
+
+Can be reached at [http://localhost:4000/graphql](http://localhost:4000/graphql)
