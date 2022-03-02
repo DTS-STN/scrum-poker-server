@@ -18,18 +18,18 @@ let rooms = [
   }
   
   function addRoom(name) {
-
+    
     //Generate ids until a unique id is found
-    let id = Math.random().toString(36).slice(2)
+    let id = Math.random().toString(36).slice(-5)
     while (getRoomByID(id) != undefined) {
-      id = Math.random().toString(36).slice(2)
+      id = Math.random().toString(36).slice(-5)
     }
-
+    console.log(id)
     const room = {
       id: id,
       name: name,
     };
-    room.push(room);
+    rooms.push(room);
     return room;
   }
   
