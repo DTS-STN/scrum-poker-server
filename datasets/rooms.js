@@ -17,7 +17,7 @@ let rooms = [
     return rooms.find((room) => room.id == id);
   }
   
-  function addRoom() {
+  function addRoom(name) {
 
     //Generate ids until a unique id is found
     let id = Math.random().toString(36).slice(2)
@@ -27,9 +27,10 @@ let rooms = [
 
     const room = {
       id: id,
+      name: name,
     };
     room.push(room);
-    return true;
+    return room;
   }
   
   function updateRoom(id, name) {
