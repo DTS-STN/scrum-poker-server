@@ -38,11 +38,10 @@ resources:
   requests:
     cpu: 200m
     memory: 512Mi
-healthChecks:
-    livenessDelay: 15
-    readinessDelay: 15
-    livenessPath: /graphql
-    readinessPath: /graphql
+livenessDelay: 15
+readinessDelay: 15
+livenessPath: /.well-known/apollo/server-health
+readinessPath: /.well-known/apollo/server-health
 port: 4000
 persistence:
     enabled: true
