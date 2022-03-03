@@ -19,15 +19,21 @@ import LibraryQueries from "../library/graphql/queries.js";
 import LibraryMutations from "../library/graphql/mutations.js";
 import LibraryResolvers from "../library/graphql/resolvers.js";
 
+import RoomTypes from "../room/types.js";
+import RoomQueries from "../room/queries.js";
+import RoomMutations from "../room/mutations.js";
+
 const schema = {
   typeDefs: gql`
     ${BookTypes}
     ${AuthorTypes}
     ${LibraryTypes}
+    ${RoomTypes}
 
     type Response {
       success: Boolean
       message: String
+      id: ID
     }
   `,
 
@@ -36,11 +42,13 @@ const schema = {
       ...BookQueries,
       ...AuthorQueries,
       ...LibraryQueries,
+      ...RoomQueries,
     },
     Mutation: {
       ...BookMutations,
       ...AuthorMutations,
       ...LibraryMutations,
+      ...RoomMutations,
     },
     ...BookResolvers,
     ...AuthorResolvers,
