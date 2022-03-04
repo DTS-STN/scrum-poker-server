@@ -272,6 +272,7 @@ object CleanUp: BuildType({
             scriptContent = """
                 az login --service-principal -u %TEAMCITY_USER% -p %TEAMCITY_PASS% --tenant %env.TENANT-ID%
                 az account set -s %env.SUBSCRIPTION%
+                echo %env.PROJECT%-%env.BRANCH%.%env.BASE_DOMAIN%  
                 kubectl delete --all deployments --namespace=%env.PROJECT%-%env.BRANCH%.%env.BASE_DOMAIN%  
             """.trimIndent()
         }
