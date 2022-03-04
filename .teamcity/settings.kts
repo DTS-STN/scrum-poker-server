@@ -29,6 +29,7 @@ project {
     buildType(Build_Performance)
     buildType(Build_Release)
     buildType(Build_Dynamic)
+    buildType(Build_Dynamic_Delete)
 }
 
 object Dev_ScrumPokerServer_HttpsGithubComDtsStnscrumPokerServerRelease : GitVcsRoot({
@@ -240,6 +241,48 @@ object Build_Performance: BuildType({
     triggers {
         vcs {
             branchFilter = "+:*"
+        }
+    }
+})
+
+object Build_Dynamic_Delete: BuildType({
+    name = "Build_Dynamic_Delete"
+    description = "Deletes deployments after a set amount of time"
+    params {
+        param("teamcity.vcsTrigger.runBuildInNewEmptyBranch", "true")
+        param("env.PROJECT", "scrum-poker-server")
+        param("env.BASE_DOMAIN","bdm-dev.dts-stn.com")
+        param("env.SUBSCRIPTION", "%vault:dts-sre/azure!/decd-dev-subscription-id%")
+        param("env.K8S_CLUSTER_NAME", "ESdCDPSBDMK8SDev-K8S")
+        param("env.RG_DEV", "ESdCDPSBDMK8SDev")
+        param("env.TARGET", "main")
+        param("env.BRANCH", "%teamcity.build.branch%")
+    }
+    vcs {
+        root(Dev_ScrumPokerServer_HttpsGithubComDtsStnscrumPokerServerDynamic)
+    }
+    steps {
+        script {
+            name = "Login to Azure and ACR"
+            scriptContent = """
+                az login --service-principal -u %TEAMCITY_USER% -p %TEAMCITY_PASS% --tenant %env.TENANT-ID%
+                az account set -s %env.SUBSCRIPTION%
+                az acr login -n MTSContainers
+            """.trimIndent()
+        }
+    }
+    triggers {
+        vcs {
+            branchFilter = "+:*"
+        }
+        schedule {
+                schedulingPolicy = cron {
+                    minutes = 5
+            }   
+            branchFilter = "+:*"
+            triggerBuild = always()
+            withPendingChangesOnly = false
+            triggerBuildOnAllCompatibleAgents = true
         }
     }
 })
