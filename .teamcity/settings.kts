@@ -279,7 +279,7 @@ object CleanUp: BuildType({
     triggers {
         schedule {
             schedulingPolicy = weekly {
-                dayOfWeek = ScheduleTrigger.DAY.Friday
+                dayOfWeek = ScheduleTrigger.DAY.Saturday
                 hour = 12
                 minute = 40
                 timezone = "America/New_York"
