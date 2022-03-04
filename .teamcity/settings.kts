@@ -278,7 +278,8 @@ object CleanUp: BuildType({
             schedulingPolicy = weekly {
                 dayOfWeek = ScheduleTrigger.DAY.Friday
                 hour = 12
-                minute = 10
+                minute = 16
+                timezone = "America/New_York"
             }  
             branchFilter = """
                     +:*
