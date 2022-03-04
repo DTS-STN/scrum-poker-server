@@ -31,7 +31,7 @@ project {
     buildType(Build_Performance)
     buildType(Build_Release)
     buildType(Build_Dynamic)
-    buildType(CleanUp)
+    buildType(CleanUpWeekly)
 }
 
 object Dev_ScrumPokerServer_HttpsGithubComDtsStnscrumPokerServerRelease : GitVcsRoot({
@@ -247,8 +247,8 @@ object Build_Performance: BuildType({
     }
 })
 
-object CleanUp: BuildType({
-    name = "CleanUp"
+object CleanUpWeekly: BuildType({
+    name = "CleanUpWeekly"
     description = "Deletes deployments every saturday"
     params {
         param("teamcity.vcsTrigger.runBuildInNewEmptyBranch", "true")
