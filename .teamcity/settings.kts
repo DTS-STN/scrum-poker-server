@@ -274,12 +274,6 @@ object CleanUp: BuildType({
         }
     }
     triggers {
-        vcs {
-            branchFilter = """
-                    +:*
-                    -:<default>
-                """.trimIndent()
-        }
         schedule {
             schedulingPolicy = weekly {
                 dayOfWeek = ScheduleTrigger.DAY.Friday
@@ -289,6 +283,7 @@ object CleanUp: BuildType({
             branchFilter = """
                     +:*
                     -:<default>
+                    -:main
                 """.trimIndent()
             triggerBuild = always()
             withPendingChangesOnly = false
