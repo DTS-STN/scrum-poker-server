@@ -140,7 +140,7 @@ object Build_Dynamic: BuildType({
         param("env.K8S_CLUSTER_NAME", "ESdCDPSBDMK8SDev-K8S")
         param("env.RG_DEV", "ESdCDPSBDMK8SDev")
         param("env.TARGET", "main")
-        param("env.BRANCH", "%teamcity.build.branch%")
+        param("env.BRANCH", "branch-%teamcity.build.branch%")
     }
     vcs {
         root(Dev_ScrumPokerServer_HttpsGithubComDtsStnscrumPokerServerDynamic)
@@ -249,7 +249,7 @@ object Build_Performance: BuildType({
 
 object CleanUp: BuildType({
     name = "CleanUp"
-    description = "Deletes deployments after a set amount of time"
+    description = "Deletes deployments every saturday"
     params {
         param("teamcity.vcsTrigger.runBuildInNewEmptyBranch", "true")
         param("env.PROJECT", "scrum-poker-server")
@@ -270,23 +270,19 @@ object CleanUp: BuildType({
                 az login --service-principal -u %TEAMCITY_USER% -p %TEAMCITY_PASS% --tenant %env.TENANT-ID%
                 az account set -s %env.SUBSCRIPTION%
                 echo %env.PROJECT%-%env.BRANCH%
-                kubectl delete namespace %env.PROJECT%-%env.BRANCH%
+                kubectl get pods | awk '/^%env.PROJECT%-branch/{system("oc delete pod " $1)}'
             """.trimIndent()
         }
     }
     triggers {
         schedule {
             schedulingPolicy = weekly {
-                dayOfWeek = ScheduleTrigger.DAY.Saturday
-                hour = 12
-                minute = 40
+                dayOfWeek = ScheduleTrigger.DAY.Friday
+                hour = 14
+                minute = 15
                 timezone = "America/New_York"
             }  
-            branchFilter = """
-                    +:*
-                    -:<default>
-                    -:main
-                """.trimIndent()
+            branchFilter = +:main
             triggerBuild = always()
             withPendingChangesOnly = false
             triggerBuildOnAllCompatibleAgents = true
