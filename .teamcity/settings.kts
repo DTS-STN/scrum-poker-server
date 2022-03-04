@@ -282,7 +282,7 @@ object CleanUp: BuildType({
                 minute = 15
                 timezone = "America/New_York"
             }  
-            branchFilter = +:main
+            branchFilter = "+:main"
             triggerBuild = always()
             withPendingChangesOnly = false
             triggerBuildOnAllCompatibleAgents = true
