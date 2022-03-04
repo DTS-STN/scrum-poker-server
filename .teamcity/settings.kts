@@ -280,8 +280,10 @@ object CleanUp: BuildType({
                 """.trimIndent()
         }
         schedule {
-            schedulingPolicy = cron {
-                minutes = "5"
+            schedulingPolicy = weekly {
+                dayOfWeek = ScheduleTrigger.DAY.Friday
+                hour = 11
+                minute = 49
             }   
             branchFilter = "+:*"
             triggerBuild = always()
