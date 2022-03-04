@@ -32,9 +32,6 @@ project {
     buildType(Build_Release)
     buildType(Build_Dynamic)
     buildType(CleanUp)
-    params{
-        param("teamcity.activeVcsBranch.age.days", "7")
-    }
 }
 
 object Dev_ScrumPokerServer_HttpsGithubComDtsStnscrumPokerServerRelease : GitVcsRoot({
