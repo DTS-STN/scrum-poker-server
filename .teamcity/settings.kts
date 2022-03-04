@@ -268,11 +268,11 @@ object CleanUp: BuildType({
     }
     steps {
         script {
-            name = "Login to Azure and ACR"
+            name = "Login and Delete Deployment"
             scriptContent = """
                 az login --service-principal -u %TEAMCITY_USER% -p %TEAMCITY_PASS% --tenant %env.TENANT-ID%
                 az account set -s %env.SUBSCRIPTION%
-                az acr login -n MTSContainers
+                kubectl delete --all deployments --namespace=%PROJECT%-%BRANCH%.%BASE_DOMAIN%  
             """.trimIndent()
         }
     }
@@ -280,8 +280,8 @@ object CleanUp: BuildType({
         schedule {
             schedulingPolicy = weekly {
                 dayOfWeek = ScheduleTrigger.DAY.Friday
-                hour = 13
-                minute = 0
+                hour = 12
+                minute = 40
                 timezone = "America/New_York"
             }  
             branchFilter = """
