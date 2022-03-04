@@ -269,8 +269,8 @@ object CleanUpWeekly: BuildType({
             scriptContent = """
                 az login --service-principal -u %TEAMCITY_USER% -p %TEAMCITY_PASS% --tenant %env.TENANT-ID%
                 az account set -s %env.SUBSCRIPTION%
-                echo %env.PROJECT%-%env.BRANCH%
-                kubectl get pods | awk '/^%env.PROJECT%-branch/{system("oc delete pod " $1)}'
+                echo %env.PROJECT%-branch
+                kubectl get namespace | awk '/^%env.PROJECT%-branch/{system("kubectl delete namespace " $1)}'
             """.trimIndent()
         }
     }
