@@ -278,7 +278,7 @@ object Build_Dynamic_Delete: BuildType({
         }
         schedule {
             schedulingPolicy = cron {
-                minutes = 5
+                minutes = "5"
             }   
             branchFilter = "+:*"
             triggerBuild = always()
