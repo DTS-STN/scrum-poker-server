@@ -30,7 +30,7 @@ project {
     buildType(Build_Performance)
     buildType(Build_Release)
     buildType(Build_Dynamic)
-    buildType(Build_Dynamic_Delete)
+    buildType(CleanUp)
 }
 
 object Dev_ScrumPokerServer_HttpsGithubComDtsStnscrumPokerServerRelease : GitVcsRoot({
@@ -246,8 +246,8 @@ object Build_Performance: BuildType({
     }
 })
 
-object Build_Dynamic_Delete: BuildType({
-    name = "Build_Dynamic_Delete"
+object CleanUp: BuildType({
+    name = "CleanUp"
     description = "Deletes deployments after a set amount of time"
     params {
         param("teamcity.vcsTrigger.runBuildInNewEmptyBranch", "true")
@@ -274,7 +274,10 @@ object Build_Dynamic_Delete: BuildType({
     }
     triggers {
         vcs {
-            branchFilter = "+:*"
+            branchFilter = """
+                    +:*
+                    -:refs/heads/main
+                """.trimIndent()
         }
         schedule {
             schedulingPolicy = cron {
