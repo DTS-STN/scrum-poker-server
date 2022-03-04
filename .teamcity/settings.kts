@@ -276,7 +276,7 @@ object CleanUp: BuildType({
         vcs {
             branchFilter = """
                     +:*
-                    -:refs/heads/main
+                    -:main
                 """.trimIndent()
         }
         schedule {
