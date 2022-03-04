@@ -281,7 +281,7 @@ object CleanUp: BuildType({
         }
         schedule {
             schedulingPolicy = weekly {
-                dayOfWeek = ScheduleTrigger.DAY.Friday
+                dayOfWeek = Friday
                 hour = 11
                 minute = 49
                 timezone = "America/New_York"
