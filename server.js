@@ -48,6 +48,9 @@ import express from "express";
         },
       },
     ],
+    cors: {
+      origin: "*"
+    },
   });
   await server.start();
   server.applyMiddleware({ app });
