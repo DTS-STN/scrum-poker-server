@@ -140,7 +140,7 @@ object Build_Dynamic: BuildType({
         param("env.K8S_CLUSTER_NAME", "ESdCDPSBDMK8SDev-K8S")
         param("env.RG_DEV", "ESdCDPSBDMK8SDev")
         param("env.TARGET", "main")
-        param("env.BRANCH", "branch-%teamcity.build.branch%")
+        param("env.BRANCH", "dyna-%teamcity.build.branch%")
     }
     vcs {
         root(Dev_ScrumPokerServer_HttpsGithubComDtsStnscrumPokerServerDynamic)
@@ -270,7 +270,7 @@ object CleanUpWeekly: BuildType({
                 az login --service-principal -u %TEAMCITY_USER% -p %TEAMCITY_PASS% --tenant %env.TENANT-ID%
                 az account set -s %env.SUBSCRIPTION%
                 echo %env.PROJECT%-branch
-                kubectl get namespace | awk '/^%env.PROJECT%-branch/{system("kubectl delete namespace " $1)}'
+                kubectl get namespace | awk '/^%env.PROJECT%-dyna/{system("kubectl delete namespace " $1)}'
             """.trimIndent()
         }
     }
