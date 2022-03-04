@@ -284,8 +284,12 @@ object CleanUp: BuildType({
                 dayOfWeek = ScheduleTrigger.DAY.Friday
                 hour = 11
                 minute = 49
+                timezone = "America/New_York"
             }   
-            branchFilter = "+:*"
+            branchFilter = """
+                    +:*
+                    -:<default>
+                """.trimIndent()
             triggerBuild = always()
             withPendingChangesOnly = false
             triggerBuildOnAllCompatibleAgents = true
