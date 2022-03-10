@@ -1,13 +1,9 @@
-import {
-  addRoom,
-  updateRoom,
-  deleteRoom,
-} from "../../datasets/rooms.js";
+import { addRoom, updateRoom, deleteRoom } from "../../datasets/rooms.js";
 
 export default {
   addRoom: async (_, { name }) => {
-    const room = addRoom(name)
-    console.log(room)
+    const room = addRoom(name);
+    console.log(room);
     if (room) {
       return { success: true, message: "Room added", id: room.id };
     } else {
