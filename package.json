@@ -6,7 +6,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "lint": "prettier --write **/*.{js,jsx,ts,tsx,json,md}"
+    "lint": "prettier --write **/*.{js,jsx,ts,tsx,json,md}",
+    "prepare": "husky install",
+    "husky-pre-commit": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md}\" && git add -A ."
   },
   "keywords": [],
   "author": "",
@@ -20,5 +22,8 @@
     "graphql-subscriptions": "^2.0.0",
     "prettier": "^2.5.1",
     "subscriptions-transport-ws": "^0.11.0"
+  },
+  "devDependencies": {
+    "husky": "^7.0.4"
   }
 }
