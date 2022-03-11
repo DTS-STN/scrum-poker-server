@@ -117,7 +117,7 @@ object Build_Release: BuildType({
             scriptContent = """
                 cd ./helmfile
                 az account set -s %env.SUBSCRIPTION%
-                az aks get-credentials --admin --resource-group %env.RG_DEV% --name %env.K8S_CLUSTER_NAME%
+                az aks get-credentials --overwrite-existing --admin --resource-group %env.RG_DEV% --name %env.K8S_CLUSTER_NAME%
                 helmfile -e %env.TARGET% apply
             """.trimIndent()
         }
@@ -176,7 +176,7 @@ object Build_Dynamic: BuildType({
             scriptContent = """
                 cd ./helmfile
                 az account set -s %env.SUBSCRIPTION%
-                az aks get-credentials --admin --resource-group %env.RG_DEV% --name %env.K8S_CLUSTER_NAME%
+                az aks get-credentials --admin --overwrite-existing --resource-group %env.RG_DEV% --name %env.K8S_CLUSTER_NAME%
                 helmfile -e %env.TARGET% apply
             """.trimIndent()
         }
@@ -235,7 +235,7 @@ object Build_Performance: BuildType({
             scriptContent = """
                 cd ./helmfile
                 az account set -s %env.SUBSCRIPTION%
-                az aks get-credentials --admin --resource-group %env.RG_DEV% --name %env.K8S_CLUSTER_NAME%
+                az aks get-credentials --admin --overwrite-existing --resource-group %env.RG_DEV% --name %env.K8S_CLUSTER_NAME%
                 helmfile -e %env.TARGET% apply
             """.trimIndent()
         }
