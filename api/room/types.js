@@ -1,7 +1,6 @@
 const RoomFields = `
   id: ID!
-  host: User
-  users: [User]
+  name: String
 `;
 
 const RoomQueries = `
@@ -9,10 +8,9 @@ const RoomQueries = `
 `;
 
 const RoomMutations = `
-  addRoom(host: ID!): Response
-  updateRoom(id: ID!, users: [ID]): Response
+  addRoom(name: String): Response
+  updateRoom(id: ID!, name: String): Response
   deleteRoom(id: ID!): Response
-  addUserToRoom(userID: ID!, roomID: ID!) : Response
 `;
 
 export default `
