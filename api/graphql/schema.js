@@ -22,6 +22,11 @@ import LibraryResolvers from "../library/graphql/resolvers.js";
 import RoomTypes from "../room/types.js";
 import RoomQueries from "../room/queries.js";
 import RoomMutations from "../room/mutations.js";
+import RoomResolvers from "../room/resolvers.js";
+
+import UserTypes from "../user/types.js";
+import UserQueries from "../user/queries.js";
+import UserMutations from "../user/mutations.js";
 
 const schema = {
   typeDefs: gql`
@@ -29,6 +34,7 @@ const schema = {
     ${AuthorTypes}
     ${LibraryTypes}
     ${RoomTypes}
+    ${UserTypes}
 
     type Response {
       success: Boolean
@@ -43,16 +49,19 @@ const schema = {
       ...AuthorQueries,
       ...LibraryQueries,
       ...RoomQueries,
+      ...UserQueries,
     },
     Mutation: {
       ...BookMutations,
       ...AuthorMutations,
       ...LibraryMutations,
       ...RoomMutations,
+      ...UserMutations,
     },
     ...BookResolvers,
     ...AuthorResolvers,
     ...LibraryResolvers,
+    ...RoomResolvers,
     Subscription: {
       ...BookSubscriptions,
     },
