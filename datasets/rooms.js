@@ -3,11 +3,13 @@ let rooms = [
     id: "85723",
     host: 1,
     users: [1, 2],
+    isShown: true,
   },
   {
     id: "10101",
     host: 2,
     users: [2],
+    isShown: false,
   },
 ];
 
@@ -30,6 +32,7 @@ function addRoom(host) {
     id: id,
     host: host,
     users: [host],
+    isShown: false,
   };
   rooms.push(room);
   return room;

@@ -2,10 +2,12 @@ let users = [
   {
     id: 1,
     name: "Tommy",
+    card: 3,
   },
   {
     id: 2,
     name: "Ben",
+    card: null,
   },
 ];
 
@@ -27,6 +29,7 @@ function addUser(name) {
   const user = {
     id: id,
     name: name,
+    card: null,
   };
   users.push(user);
   return user;

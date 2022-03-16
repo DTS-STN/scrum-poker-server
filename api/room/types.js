@@ -2,6 +2,7 @@ const RoomFields = `
   id: ID!
   host: User
   users: [User]
+  isShown: Boolean!
 `;
 
 const RoomQueries = `

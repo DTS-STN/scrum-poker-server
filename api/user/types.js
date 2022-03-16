@@ -1,6 +1,7 @@
 const UserFields = `
   id: ID!
   name: String
+  card: Int
 `;
 
 const UserQueries = `
