@@ -21,7 +21,7 @@ function getRoomByID(id) {
   return rooms.find((room) => room.id == id);
 }
 
-function addRoom(host) {
+function addRoom(name) {
   //Generate ids until a unique id is found
   let id = Math.random().toString(36).slice(-5);
   while (getRoomByID(id) != undefined) {
@@ -38,12 +38,12 @@ function addRoom(host) {
   return room;
 }
 
-function updateRoom(id, users) {
+function updateRoom(id, name) {
   let room = getRoomByID(id);
   if (room == undefined) {
     return false;
   }
-  room.users = users;
+  room.name = name;
   return true;
 }
 

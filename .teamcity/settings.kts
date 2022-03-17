@@ -77,7 +77,7 @@ object Build_Release: BuildType({
         param("teamcity.vcsTrigger.runBuildInNewEmptyBranch", "true")
         param("env.PROJECT", "scrum-poker-server")
         param("env.BASE_DOMAIN","bdm-dev.dts-stn.com")
-        param("env.SUBSCRIPTION", "%vault:dts-sre/azure!/decd-dev-subscription-id%")
+        param("env.SUBSCRIPTION", "%vault:dts-sre/data/azure!/decd-dev-subscription-id%")
         param("env.K8S_CLUSTER_NAME", "ESdCDPSBDMK8SDev-K8S")
         param("env.RG_DEV", "ESdCDPSBDMK8SDev")
         param("env.TARGET", "main")
@@ -117,7 +117,7 @@ object Build_Release: BuildType({
             scriptContent = """
                 cd ./helmfile
                 az account set -s %env.SUBSCRIPTION%
-                az aks get-credentials --admin --resource-group %env.RG_DEV% --name %env.K8S_CLUSTER_NAME%
+                az aks get-credentials --overwrite-existing --admin --resource-group %env.RG_DEV% --name %env.K8S_CLUSTER_NAME%
                 helmfile -e %env.TARGET% apply
             """.trimIndent()
         }
@@ -136,7 +136,7 @@ object Build_Dynamic: BuildType({
         param("teamcity.vcsTrigger.runBuildInNewEmptyBranch", "true")
         param("env.PROJECT", "scrum-poker-server")
         param("env.BASE_DOMAIN","bdm-dev.dts-stn.com")
-        param("env.SUBSCRIPTION", "%vault:dts-sre/azure!/decd-dev-subscription-id%")
+        param("env.SUBSCRIPTION", "%vault:dts-sre/data/azure!/decd-dev-subscription-id%")
         param("env.K8S_CLUSTER_NAME", "ESdCDPSBDMK8SDev-K8S")
         param("env.RG_DEV", "ESdCDPSBDMK8SDev")
         param("env.TARGET", "main")
@@ -176,7 +176,7 @@ object Build_Dynamic: BuildType({
             scriptContent = """
                 cd ./helmfile
                 az account set -s %env.SUBSCRIPTION%
-                az aks get-credentials --admin --resource-group %env.RG_DEV% --name %env.K8S_CLUSTER_NAME%
+                az aks get-credentials --admin --overwrite-existing --resource-group %env.RG_DEV% --name %env.K8S_CLUSTER_NAME%
                 helmfile -e %env.TARGET% apply
             """.trimIndent()
         }
@@ -195,7 +195,7 @@ object Build_Performance: BuildType({
         param("teamcity.vcsTrigger.runBuildInNewEmptyBranch", "true")
         param("env.PROJECT", "scrum-poker-server")
         param("env.BASE_DOMAIN","bdm-dev.dts-stn.com")
-        param("env.SUBSCRIPTION", "%vault:dts-sre/azure!/decd-dev-subscription-id%")
+        param("env.SUBSCRIPTION", "%vault:dts-sre/data/azure!/decd-dev-subscription-id%")
         param("env.K8S_CLUSTER_NAME", "ESdCDPSBDMK8SDev-K8S")
         param("env.RG_DEV", "ESdCDPSBDMK8SDev")
         param("env.TARGET", "main")
@@ -235,7 +235,7 @@ object Build_Performance: BuildType({
             scriptContent = """
                 cd ./helmfile
                 az account set -s %env.SUBSCRIPTION%
-                az aks get-credentials --admin --resource-group %env.RG_DEV% --name %env.K8S_CLUSTER_NAME%
+                az aks get-credentials --admin --overwrite-existing --resource-group %env.RG_DEV% --name %env.K8S_CLUSTER_NAME%
                 helmfile -e %env.TARGET% apply
             """.trimIndent()
         }
@@ -254,7 +254,7 @@ object CleanUpWeekly: BuildType({
         param("teamcity.vcsTrigger.runBuildInNewEmptyBranch", "true")
         param("env.PROJECT", "scrum-poker-server")
         param("env.BASE_DOMAIN","bdm-dev.dts-stn.com")
-        param("env.SUBSCRIPTION", "%vault:dts-sre/azure!/decd-dev-subscription-id%")
+        param("env.SUBSCRIPTION", "%vault:dts-sre/data/azure!/decd-dev-subscription-id%")
         param("env.K8S_CLUSTER_NAME", "ESdCDPSBDMK8SDev-K8S")
         param("env.RG_DEV", "ESdCDPSBDMK8SDev")
         param("env.TARGET", "main")
