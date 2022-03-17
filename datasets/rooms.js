@@ -21,16 +21,16 @@ function getRoomByID(id) {
   return rooms.find((room) => room.id == id);
 }
 
-function addRoom(host) {
+function addRoom(userid) {
   //Generate ids until a unique id is found
   let id = Math.random().toString(36).slice(-5);
-  while (getRoomByID(id) != undefined) {
+  while (!getRoomByID(id)) {
     id = Math.random().toString(36).slice(-5);
   }
   const room = {
     id: id,
-    host: host.id,
-    users: [host.id],
+    host: userid,
+    users: [userid],
     isShown: false,
   };
   rooms.push(room);
@@ -39,20 +39,20 @@ function addRoom(host) {
 
 function updateRoom(id, name) {
   let room = getRoomByID(id);
-  if (room == undefined) {
-    return false;
+  if (room) {
+    room.name = name;
+    return true;
   }
-  room.name = name;
-  return true;
+  return false;
 }
 
-function addUserToRoom(roomID, userID) {
-  let room = getRoomByID(roomID);
-  if (room == undefined) {
-    return false;
+function addUserToRoom(roomid, userid) {
+  let room = getRoomByID(roomid);
+  if (room) {
+    room.users.push(userid);
+    return true;
   }
-  room.users.push(userID);
-  return true;
+  return false;
 }
 
 function deleteRoom(id) {
