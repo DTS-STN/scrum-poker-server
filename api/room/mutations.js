@@ -5,12 +5,19 @@ import {
   addUserToRoom,
 } from "../../datasets/rooms.js";
 
+import { addUser } from "../../datasets/users.js";
+
 export default {
-  addRoom: async (_, { host }) => {
-    const room = addRoom(host);
-    console.log(room);
+  addRoom: async (_, { name }) => {
+    const userHost = addUser(name);
+    const room = addRoom(userHost);
     if (room) {
-      return { success: true, message: "Room added", id: room.id };
+      return {
+        success: true,
+        message: "Room added",
+        id: room.id,
+        userID: userHost.id,
+      };
     } else {
       return { success: false, message: "Failed to add room" };
     }

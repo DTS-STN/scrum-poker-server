@@ -21,17 +21,16 @@ function getRoomByID(id) {
   return rooms.find((room) => room.id == id);
 }
 
-function addRoom(name) {
+function addRoom(host) {
   //Generate ids until a unique id is found
   let id = Math.random().toString(36).slice(-5);
   while (getRoomByID(id) != undefined) {
     id = Math.random().toString(36).slice(-5);
   }
-  console.log(id);
   const room = {
     id: id,
-    host: host,
-    users: [host],
+    host: host.id,
+    users: [host.id],
     isShown: false,
   };
   rooms.push(room);
