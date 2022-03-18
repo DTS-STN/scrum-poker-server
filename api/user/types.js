@@ -21,7 +21,9 @@ export default `
   type Query{
     ${UserQueries}
   }
-
   type Mutation{
     ${UserMutations}
+  }
+  type Subscription{
+    userAdded: User
   }`;

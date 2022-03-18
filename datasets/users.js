@@ -25,7 +25,6 @@ function addUser(name) {
   while (getUserByID(id) != undefined) {
     id = Math.random().toString(10).slice(-5);
   }
-  console.log(id);
   const user = {
     id: id,
     name: name,

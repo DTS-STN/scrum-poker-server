@@ -11,6 +11,7 @@ import RoomResolvers from "../room/resolvers.js";
 import UserTypes from "../user/types.js";
 import UserQueries from "../user/queries.js";
 import UserMutations from "../user/mutations.js";
+import UserSubscriptions from "../user/subscriptions.js"
 
 const schema = {
   typeDefs: gql`
@@ -35,6 +36,9 @@ const schema = {
       ...UserMutations,
     },
     ...RoomResolvers,
+    Subscription: {
+      ...UserSubscriptions,
+    },
   },
 
   subscriptions: subscriptions,
