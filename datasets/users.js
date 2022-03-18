@@ -22,10 +22,9 @@ function getUserByID(id) {
 function addUser(name) {
   //Generate ids until a unique id is found
   let id = Math.random().toString(10).slice(-5);
-  while (getUserByID(id) != undefined) {
+  while (!getUserByID(id)) {
     id = Math.random().toString(10).slice(-5);
   }
-  console.log(id);
   const user = {
     id: id,
     name: name,
@@ -37,11 +36,11 @@ function addUser(name) {
 
 function updateUser(id, name) {
   let user = getUserByID(id);
-  if (user == undefined) {
-    return false;
+  if (user) {
+    user.name = name;
+    return true;
   }
-  user.name = name;
-  return true;
+  return false;
 }
 
 function deleteUser(id) {

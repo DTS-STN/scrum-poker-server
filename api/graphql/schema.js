@@ -21,7 +21,6 @@ const schema = {
       success: Boolean
       message: String
       id: ID
-      userID: ID
     }
   `,
 

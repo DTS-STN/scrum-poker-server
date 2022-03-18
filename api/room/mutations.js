@@ -8,15 +8,13 @@ import {
 import { addUser } from "../../datasets/users.js";
 
 export default {
-  addRoom: async (_, { name }) => {
-    const userHost = addUser(name);
-    const room = addRoom(userHost);
+  addRoom: async (_, { userid }) => {
+    const room = addRoom(userid);
     if (room) {
       return {
         success: true,
         message: "Room added",
         id: room.id,
-        userID: userHost.id,
       };
     } else {
       return { success: false, message: "Failed to add room" };
@@ -36,8 +34,8 @@ export default {
       return { success: false, message: "Failed to delete room" };
     }
   },
-  addUserToRoom: async (_, { roomID, userID }) => {
-    if (addUserToRoom(roomID, userID)) {
+  addUserToRoom: async (_, { roomid, userid }) => {
+    if (addUserToRoom(roomid, userid)) {
       return { success: true, message: "User added" };
     } else {
       return { success: false, message: "Failed to add user" };
