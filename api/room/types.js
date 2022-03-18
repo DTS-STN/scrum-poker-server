@@ -10,10 +10,10 @@ const RoomQueries = `
 `;
 
 const RoomMutations = `
-  addRoom(name: String): Response
+  addRoom(userid: ID!): Response
   updateRoom(id: ID!, name: String): Response
   deleteRoom(id: ID!): Response
-  addUserToRoom(userID: ID!, roomID: ID!) : Response
+  addUserToRoom(userid: ID!, roomid: ID!) : Response
 `;
 
 export default `
