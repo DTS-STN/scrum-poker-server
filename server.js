@@ -1,56 +1,48 @@
 import { ApolloServer } from "apollo-server-express";
 import schema from "./api/graphql/schema.js";
 import { createServer } from "http";
-import { execute, subscribe } from "graphql";
-import { SubscriptionServer } from "subscriptions-transport-ws";
-import { makeExecutableSchema } from "@graphql-tools/schema";
 import express from "express";
+import { ApolloServerPluginDrainHttpServer } from "apollo-server-core";
+import { WebSocketServer } from "ws";
+import { useServer } from "graphql-ws/lib/use/ws";
 
 (async function () {
   const app = express();
   const httpServer = createServer(app);
 
-  const subscriptionServer = SubscriptionServer.create(
-    {
-      // This is the `schema` we just created.
-      schema,
-      // These are imported from `graphql`.
-      execute,
-      subscribe,
-      onConnect(connectionParams, webSocket, context) {
-        console.log("Connected!");
-      },
-      onDisconnect(webSocket, context) {
-        console.log("Disconnected!");
-      },
-    },
-    {
-      // This is the `httpServer` we created in a previous step.
-      server: httpServer,
-      // Pass a different path here if your ApolloServer serves at
-      // a different path.
-      path: "/graphql",
-    }
-  );
+  // Creating the WebSocket server
+  const wsServer = new WebSocketServer({
+    server: httpServer,
+    // Apollo Server path
+    path: "/graphql",
+  });
 
-  // The ApolloServer constructor requires two parameters: your schema
-  // definition and your set of resolvers.
+  // Hand in the schema we just created and have the
+  // WebSocketServer start listening.
+  const serverCleanup = useServer({ schema }, wsServer);
+
+  // Creating Apollo server
   const server = new ApolloServer({
     schema,
     plugins: [
+      // Proper shutdown for the HTTP server.
+      ApolloServerPluginDrainHttpServer({ httpServer }),
       {
         async serverWillStart() {
           return {
             async drainServer() {
-              subscriptionServer.close();
+              await serverCleanup.dispose();
             },
           };
         },
       },
     ],
   });
+
+  //Start Apollo Server
   await server.start();
   server.applyMiddleware({ app });
+
   // The `listen` method launches a web server.
   const PORT = 4000;
   httpServer.listen(PORT, () =>
