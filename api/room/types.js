@@ -1,6 +1,8 @@
 const RoomFields = `
   id: ID!
-  name: String
+  host: User
+  users: [User]
+  isShown: Boolean!
 `;
 
 const RoomQueries = `
@@ -11,6 +13,7 @@ const RoomMutations = `
   addRoom(name: String): Response
   updateRoom(id: ID!, name: String): Response
   deleteRoom(id: ID!): Response
+  addUserToRoom(userID: ID!, roomID: ID!) : Response
 `;
 
 export default `
