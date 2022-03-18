@@ -1,9 +1,13 @@
 import { addUser, updateUser, deleteUser } from "../../datasets/users.js";
+import { pubsub } from "../graphql/pubsub.js";
 
 export default {
   addUser: async (_, { name }) => {
     const user = addUser(name);
     if (user) {
+      pubsub.publish("USER_ADDED", {
+        userAdded: user,
+      });
       return { success: true, message: "User added", id: user.id };
     } else {
       return { success: false, message: "Failed to add user" };
