@@ -18,13 +18,13 @@ function getRooms() {
 }
 
 function getRoomByID(id) {
-  return rooms.find((room) => room.id == id);
+  return rooms.find((room) => room.id === id);
 }
 
 function addRoom(userid) {
   //Generate ids until a unique id is found
   let id = Math.random().toString(36).slice(-5);
-  while (!getRoomByID(id)) {
+  while (getRoomByID(id) !== undefined) {
     id = Math.random().toString(36).slice(-5);
   }
   const room = {
@@ -61,7 +61,7 @@ function deleteRoom(id) {
     return false;
   }
 
-  const index = rooms.findIndex((room) => room.id == id);
+  const index = rooms.findIndex((room) => room.id === id);
   rooms.splice(index, 1);
   return true;
 }

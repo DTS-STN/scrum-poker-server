@@ -16,13 +16,13 @@ function getUsers() {
 }
 
 function getUserByID(id) {
-  return users.find((user) => user.id == id);
+  return users.find((user) => user.id === id);
 }
 
 function addUser(name) {
   //Generate ids until a unique id is found
   let id = Math.random().toString(10).slice(-5);
-  while (!getUserByID(id)) {
+  while (getUserByID(id) !== undefined) {
     id = Math.random().toString(10).slice(-5);
   }
   const user = {
@@ -49,7 +49,7 @@ function deleteUser(id) {
     return false;
   }
 
-  const index = users.findIndex((user) => user.id == id);
+  const index = users.findIndex((user) => user.id === id);
   users.splice(index, 1);
   return true;
 }
