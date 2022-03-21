@@ -13,8 +13,8 @@ export default {
       return { success: false, message: "Failed to add user" };
     }
   },
-  updateUser: async (_, { id, name, card, room }) => {
-    const user = updateUser(id, name, card, room)
+  updateUser: async (_, { userInput }) => {
+    const user = updateUser(userInput.id, userInput.name, userInput.card, userInput.room)
     if (user) {
       pubsub.publish("USER_MODIFIED", {
         userModified: user,
@@ -24,8 +24,8 @@ export default {
       return { success: false, message: "Failed to update user" };
     }
   },
-  deleteUser: async (_, { id }) => {
-    if (deleteUser(id)) {
+  deleteUser: async (_, { userInput }) => {
+    if (deleteUser(userInput.id)) {
       return { success: true, message: "User deleted" };
     } else {
       return { success: false, message: "Failed to delete user" };

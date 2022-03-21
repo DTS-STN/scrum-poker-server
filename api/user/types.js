@@ -11,11 +11,14 @@ const UserQueries = `
 
 const UserMutations = `
   addUser(name: String, card: Int, room: ID): Response
-  updateUser(id: ID!, name: String, card: Int, room: ID): Response
-  deleteUser(id: ID!): Response
+  updateUser(userInput: UserInput): Response
+  deleteUser(userInput: UserInput): Response
 `;
 
 export default `
+  input UserInput{
+    ${UserFields}
+  }
   type User {
     ${UserFields}
   }
