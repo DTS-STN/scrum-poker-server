@@ -7,8 +7,8 @@ let rooms = [
   },
   {
     id: "10101",
-    host: 2,
-    users: [2],
+    host: 3,
+    users: [3],
     isShown: false,
   },
 ];
