@@ -12,10 +12,16 @@ import UserTypes from "../user/types.js";
 import UserQueries from "../user/queries.js";
 import UserMutations from "../user/mutations.js";
 
+import MessageTypes from "../message/types.js";
+import MessageQueries from "../message/queries.js";
+import MessageMutations from "../message/mutations.js";
+import MessageSubscriptions from "../message/subscriptions.js";
+
 const schema = {
   typeDefs: gql`
     ${RoomTypes}
     ${UserTypes}
+    ${MessageTypes}
 
     type Response {
       success: Boolean
@@ -28,12 +34,15 @@ const schema = {
     Query: {
       ...RoomQueries,
       ...UserQueries,
+      ...MessageQueries,
     },
     Mutation: {
       ...RoomMutations,
       ...UserMutations,
+      ...MessageMutations,
     },
     ...RoomResolvers,
+    ...MessageSubscriptions,
   },
 
   subscriptions: subscriptions,
