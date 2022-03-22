@@ -11,7 +11,7 @@ const RoomQueries = `
 
 const RoomMutations = `
   addRoom(userid: ID!): Response
-  updateRoom(id: ID!, name: String): Response
+  updateRoom(id: ID!, users: [ID]): Response
   deleteRoom(id: ID!): Response
   addUserToRoom(userid: ID!, roomid: ID!) : Response
 `;

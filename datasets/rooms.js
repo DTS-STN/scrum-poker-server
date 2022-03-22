@@ -37,10 +37,10 @@ function addRoom(userid) {
   return room;
 }
 
-function updateRoom(id, name) {
+function updateRoom(id, users) {
   let room = getRoomByID(id);
   if (room) {
-    room.name = name;
+    room.users = users.map((i) => Number(i));
     return true;
   }
   return false;
