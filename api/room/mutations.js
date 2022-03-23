@@ -5,8 +5,6 @@ import {
   addUserToRoom,
 } from "../../datasets/rooms.js";
 
-import { addUser } from "../../datasets/users.js";
-
 export default {
   addRoom: async (_, { userid }) => {
     const room = addRoom(userid);
