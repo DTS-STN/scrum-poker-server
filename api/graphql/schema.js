@@ -11,6 +11,7 @@ import RoomResolvers from "../room/resolvers.js";
 import UserTypes from "../user/types.js";
 import UserQueries from "../user/queries.js";
 import UserMutations from "../user/mutations.js";
+import UserSubscriptions from "../user/subscriptions.js";
 
 import MessageTypes from "../message/types.js";
 import MessageQueries from "../message/queries.js";
@@ -42,7 +43,10 @@ const schema = {
       ...MessageMutations,
     },
     ...RoomResolvers,
-    ...MessageSubscriptions,
+    Subscription: {
+      ...UserSubscriptions,
+      ...MessageSubscriptions,
+    },
   },
 
   subscriptions: subscriptions,

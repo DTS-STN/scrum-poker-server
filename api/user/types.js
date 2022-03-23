@@ -2,6 +2,7 @@ const UserFields = `
   id: ID!
   name: String
   card: Int
+  room: ID
 `;
 
 const UserQueries = `
@@ -9,19 +10,24 @@ const UserQueries = `
 `;
 
 const UserMutations = `
-  addUser(name: String): Response
-  updateUser(id: ID!, name: String): Response
-  deleteUser(id: ID!): Response
+  addUser(name: String, card: Int, room: ID): Response
+  updateUser(userInput: UserInput): Response
+  deleteUser(userInput: UserInput): Response
 `;
 
 export default `
+  input UserInput{
+    ${UserFields}
+  }
   type User {
     ${UserFields}
   }
   type Query{
     ${UserQueries}
   }
-
   type Mutation{
     ${UserMutations}
+  }
+  type Subscription{
+    userModified(room: ID): User
   }`;
