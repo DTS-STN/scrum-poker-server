@@ -29,8 +29,8 @@ function addRoom(userid) {
   }
   const room = {
     id: id,
-    host: userid,
-    users: [userid],
+    host: Number(userid),
+    users: [Number(userid)],
     isShown: false,
   };
   rooms.push(room);
