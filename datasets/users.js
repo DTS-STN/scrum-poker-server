@@ -29,9 +29,9 @@ function getUserByID(id) {
 
 function addUser(name, card, room) {
   //Generate ids until a unique id is found
-  let id = Math.random().toString(10).slice(-5);
+  let id = Math.floor(Math.random() * 90000) + 10000;
   while (getUserByID(id) !== undefined) {
-    id = Math.random().toString(10).slice(-5);
+    id = Math.floor(Math.random() * 90000) + 10000;
   }
   const user = {
     id: id,
