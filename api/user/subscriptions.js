@@ -1,5 +1,5 @@
 import { pubsub } from "../graphql/pubsub.js";
-import { withFilter } from 'graphql-subscriptions';
+import { withFilter } from "graphql-subscriptions";
 
 export default {
   userModified: {

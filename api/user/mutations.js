@@ -14,7 +14,12 @@ export default {
     }
   },
   updateUser: async (_, { userInput }) => {
-    const user = updateUser(userInput.id, userInput.name, userInput.card, userInput.room)
+    const user = updateUser(
+      userInput.id,
+      userInput.name,
+      userInput.card,
+      userInput.room
+    );
     if (user) {
       pubsub.publish("USER_MODIFIED", {
         userModified: user,
