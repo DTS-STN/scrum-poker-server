@@ -8,7 +8,9 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "prettier --write **/*.{js,jsx,ts,tsx,json,md}",
     "prepare": "husky install",
-    "husky-pre-commit": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md}\" && git add -A ."
+    "husky-pre-commit": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md}\" && git add -A .",
+    "docker:build": "docker build -t scrum-poker-server:latest .",
+    "docker:run": "docker run -d -p 4000:4000 scrum-poker-server:latest"
   },
   "keywords": [],
   "author": "",
