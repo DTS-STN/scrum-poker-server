@@ -2,16 +2,16 @@ let messages = [
   {
     id: "41490779",
     userId: "U1490849",
-    name: "Marco",
-    content: "Hello there",
+    name: "Alexa",
+    content: "Hey siri play Luis Miguel el concierto",
     edited: false,
     roomId: "R1490849"
   },
   {
     id: "41490849",
     userId: "U1490847",
-    name: "Brie",
-    content: "Hi, how are you?",
+    name: "Siri",
+    content: "Playing Luis MIguel el concierto from spotify",
     edited: false,
     roomId: "R1490849"
   },
