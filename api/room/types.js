@@ -14,6 +14,7 @@ const RoomMutations = `
   updateRoom(id: ID!, users: [ID]): Response
   deleteRoom(id: ID!): Response
   addUserToRoom(userid: ID!, roomid: ID!) : Response
+  showHideRoomCard(roomId: ID!, isShown: Boolean!) : Response
 `;
 
 export default `
@@ -26,4 +27,9 @@ export default `
 
   type Mutation{
     ${RoomMutations}
-  }`;
+  }
+  
+  type Subscription{
+    roomShowHideCardChanged(room: ID): Room
+  }
+  `;

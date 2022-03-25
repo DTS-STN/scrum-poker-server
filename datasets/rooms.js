@@ -66,6 +66,14 @@ function deleteRoom(id) {
   return true;
 }
 
+function showHideRoomCard(id, isShown) {
+  let room = getRoomByID(id);
+  if (room) {
+    room.isShown = isShown;
+  }
+  return room;
+}
+
 export {
   getRooms,
   getRoomByID,
@@ -73,4 +81,5 @@ export {
   updateRoom,
   deleteRoom,
   addUserToRoom,
+  showHideRoomCard
 };

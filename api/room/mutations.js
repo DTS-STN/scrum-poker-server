@@ -3,7 +3,10 @@ import {
   updateRoom,
   deleteRoom,
   addUserToRoom,
+  showHideRoomCard
 } from "../../datasets/rooms.js";
+import { pubsub } from "../graphql/pubsub.js";
+
 
 export default {
   addRoom: async (_, { userid }) => {
@@ -39,4 +42,16 @@ export default {
       return { success: false, message: "Failed to add user" };
     }
   },
+  showHideRoomCard: async (_, { roomId, isShown }) => {
+    const room = showHideRoomCard(roomId, isShown);
+    if (room) {
+      pubsub.publish("ROOM_SHOW_HIDE_CARD_CHANGED", {
+        roomShowHideCardChanged: room,
+      });
+      return { success: true, message: `Card is ${isShown ? 'shown' : 'hidden'}`  };
+    } else {
+      return { success: false, message: "Failed to change card status" };
+    }
+  }
+
 };
