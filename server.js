@@ -5,6 +5,7 @@ import express from "express";
 import { ApolloServerPluginDrainHttpServer } from "apollo-server-core";
 import { WebSocketServer } from "ws";
 import { useServer } from "graphql-ws/lib/use/ws";
+import { pubsub } from "./api/graphql/pubsub.js"
 
 (async function () {
   const app = express();
@@ -19,7 +20,7 @@ import { useServer } from "graphql-ws/lib/use/ws";
 
   // Hand in the schema we just created and have the
   // WebSocketServer start listening.
-  const serverCleanup = useServer({ schema }, wsServer);
+  const serverCleanup = useServer({ schema, context: { pubsub } }, wsServer);
 
   // Creating Apollo server
   const server = new ApolloServer({

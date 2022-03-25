@@ -25,9 +25,6 @@ function getMessageByID(id) {
   return messages.find((message) => message.id == id);
 }
 
-const subscribers = [];
-const onMessagesUpdates = (fn) => subscribers.push(fn);
-
 //Adds a message
 function addMessage(roomId, name, content) {
   let id = new Date().getUTCMilliseconds() + Math.random().toString(10).slice(-5);
@@ -41,8 +38,6 @@ function addMessage(roomId, name, content) {
   };
 
   messages.push(message);
-  subscribers.forEach((fn) => fn());
-
   return message;
 }
 
@@ -69,4 +64,4 @@ function deleteMessage(roomId, id) {
   return true;
 }
 
-export { getMessages, getMessageByID, addMessage, updateMessage, deleteMessage, onMessagesUpdates };
+export { messages, getMessages, getMessageByID, addMessage, updateMessage, deleteMessage };

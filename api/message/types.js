@@ -11,7 +11,7 @@ const MessageQueries = `
 `;
 
 const MessageMutations = `
-  addMessage(roomId: String!, name: String!, content: String!): Response
+  addMessage(roomId: ID!, name: String!, content: String!): Response
   updateMessage(roomId: ID!, id: ID!, content: String!): Response
   deleteMessage(roomId: ID!, id: ID!): Response
 `;
@@ -30,6 +30,6 @@ export default `
   }
   
   type Subscription {
-    ${MessageQueries}
+    messages: [Message!]
   }
   `;

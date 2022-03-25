@@ -1,14 +1,12 @@
-import {
-  addMessage,
-  updateMessage,
-  deleteMessage,
-} from "../../datasets/messages.js";
+import { messages, addMessage, updateMessage, deleteMessage } from "../../datasets/messages.js";
+import { pubsub } from "../graphql/pubsub.js";
 
 export default {
   //
-  addMessage: async (_, { roomId, name, content }) => {
+  addMessage: async (_, { roomId, name, content }, context) => {
     const Message = addMessage(roomId, name, content);
     if (Message) {
+      pubsub.publish(['MESSAGES'], { messages: messages })
       return {
         success: true,
         message: "Message added",
@@ -19,8 +17,11 @@ export default {
     }
   },
   //
-  updateMessage: async (_, { roomId, id, content }) => {
+  updateMessage: async (_, { roomId, id, content }, context) => {
     if (updateMessage(roomId, id, content)) {
+
+      pubsub.publish(['MESSAGES'], { messages: messages })
+
       return { success: true, message: "Message updated" };
     } else {
       return { success: false, message: "Failed to update Message" };
@@ -29,6 +30,9 @@ export default {
   //
   deleteMessage: async (_, { roomId, id }) => {
     if (deleteMessage(roomId, id)) {
+
+      pubsub.publish(['MESSAGES'], { messages: messages })
+
       return { success: true, message: "Message deleted" };
     } else {
       return { success: false, message: "Failed to delete Message" };
