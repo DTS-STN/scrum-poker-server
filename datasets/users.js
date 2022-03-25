@@ -24,7 +24,7 @@ function getUsers() {
 }
 
 function getUserByID(id) {
-  return users.find((user) => user.id === id);
+  return users.find((user) => user.id === Number(id));
 }
 
 function addUser(name, card, room) {
@@ -34,7 +34,7 @@ function addUser(name, card, room) {
     id = Math.floor(Math.random() * 90000) + 10000;
   }
   const user = {
-    id: id,
+    id: Number(id),
     name: name,
     card: card,
     room: room,
@@ -59,7 +59,7 @@ function deleteUser(id) {
     return false;
   }
 
-  const index = users.findIndex((user) => user.id === id);
+  const index = users.findIndex((user) => user.id === Number(id));
   users.splice(index, 1);
   return true;
 }
