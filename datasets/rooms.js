@@ -37,10 +37,11 @@ function addRoom(userid) {
   return room;
 }
 
-function updateRoom(id, users) {
+function updateRoom(id, users, isShown) {
   let room = getRoomByID(id);
   if (room) {
     room.users = users.map((i) => Number(i));
+    room.isShown = isShown;
     return true;
   }
   return false;
@@ -66,14 +67,6 @@ function deleteRoom(id) {
   return true;
 }
 
-function showHideRoomCard(id, isShown) {
-  let room = getRoomByID(id);
-  if (room) {
-    room.isShown = isShown;
-  }
-  return room;
-}
-
 export {
   getRooms,
   getRoomByID,
@@ -81,5 +74,4 @@ export {
   updateRoom,
   deleteRoom,
   addUserToRoom,
-  showHideRoomCard
 };
