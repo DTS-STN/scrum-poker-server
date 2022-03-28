@@ -33,9 +33,8 @@ export default {
         return { success: false, message: "Failed to update room" };
       }
     } catch (error) {
-      console.log('update room error', error);
+      return { success: false, message: "Failed to update room" };
     }
-  
   },
   deleteRoom: async (_, { id }) => {
     if (deleteRoom(id)) {
