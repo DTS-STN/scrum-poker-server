@@ -3,7 +3,10 @@ import {
   updateRoom,
   deleteRoom,
   addUserToRoom,
+  getRoomByID
 } from "../../datasets/rooms.js";
+import { pubsub } from "../graphql/pubsub.js";
+
 
 export default {
   addRoom: async (_, { userid }) => {
@@ -18,10 +21,18 @@ export default {
       return { success: false, message: "Failed to add room" };
     }
   },
-  updateRoom: async (_, { id, users }) => {
-    if (updateRoom(id, users)) {
-      return { success: true, message: "Room updated" };
-    } else {
+  updateRoom: async (_, { id, users, isShown }) => {
+    try {
+      if (updateRoom(id, users, isShown)) {
+        const room = getRoomByID(id)
+        pubsub.publish("ROOM_UPDATED", {
+          roomUpdated: room
+        });
+        return { success: true, message: "Room updated" };
+      } else {
+        return { success: false, message: "Failed to update room" };
+      }
+    } catch (error) {
       return { success: false, message: "Failed to update room" };
     }
   },
@@ -34,9 +45,13 @@ export default {
   },
   addUserToRoom: async (_, { roomid, userid }) => {
     if (addUserToRoom(roomid, userid)) {
+      const room = getRoomByID(roomid)
+      pubsub.publish("ROOM_UPDATED", {
+        roomUpdated: room
+      });
       return { success: true, message: "User added" };
     } else {
       return { success: false, message: "Failed to add user" };
     }
-  },
+  }
 };

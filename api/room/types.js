@@ -11,7 +11,7 @@ const RoomQueries = `
 
 const RoomMutations = `
   addRoom(userid: ID!): Response
-  updateRoom(id: ID!, users: [ID]): Response
+  updateRoom(id: ID!, users: [ID], isShown: Boolean!): Response
   deleteRoom(id: ID!): Response
   addUserToRoom(userid: ID!, roomid: ID!) : Response
 `;
@@ -26,4 +26,9 @@ export default `
 
   type Mutation{
     ${RoomMutations}
-  }`;
+  }
+  
+  type Subscription{
+    roomUpdated(room: ID!): Room
+  }
+  `;
