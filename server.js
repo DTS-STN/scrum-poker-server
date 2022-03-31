@@ -5,7 +5,7 @@ import express from "express";
 import { ApolloServerPluginDrainHttpServer } from "apollo-server-core";
 import { WebSocketServer } from "ws";
 import { useServer } from "graphql-ws/lib/use/ws";
-import { pubsub } from "./api/graphql/pubsub.js"
+import { pubsub } from "./api/graphql/pubsub.js";
 
 (async function () {
   const app = express();

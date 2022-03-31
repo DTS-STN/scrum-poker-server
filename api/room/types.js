@@ -3,6 +3,7 @@ const RoomFields = `
   host: User
   users: [User]
   isShown: Boolean!
+  cards: [Int]
 `;
 
 const RoomQueries = `
@@ -10,8 +11,8 @@ const RoomQueries = `
 `;
 
 const RoomMutations = `
-  addRoom(userid: ID!): Response
-  updateRoom(id: ID!, users: [ID], isShown: Boolean!): Response
+  addRoom(userid: ID!, cards: [Int]): Response
+  updateRoom(id: ID!, users: [ID], isShown: Boolean!, cards: [Int]): Response
   deleteRoom(id: ID!): Response
   addUserToRoom(userid: ID!, roomid: ID!) : Response
 `;
