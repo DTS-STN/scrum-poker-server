@@ -28,6 +28,8 @@ project {
     vcsRoot(Dev_ScrumPokerServer_HttpsGithubComDtsStnscrumPokerServerRelease)
     vcsRoot(Dev_ScrumPokerServer_HttpsGithubComDtsStnscrumPokerServerDynamic)
     vcsRoot(Dev_ScrumPokerServer_HttpsGithubComDtsStnscrumPokerServerPerformance)
+    vcsRoot(Dev_ScrumPokerServer_HttpsGithubComDtsStnscrumPokerServerProduction)
+    buildType(Build_Production)
     buildType(Build_Performance)
     buildType(Build_Release)
     buildType(Build_Dynamic)
@@ -61,6 +63,18 @@ object Dev_ScrumPokerServer_HttpsGithubComDtsStnscrumPokerServerPerformance : Gi
     url = "git@github.com:DTS-STN/scrum-poker-server.git"
     branch = "refs/heads/main"
     branchSpec = "+:refs/heads/main"
+    authMethod = uploadedKey {
+        userName = "git"
+        uploadedKey = "dtsrobot"
+    }
+})
+
+object Dev_ScrumPokerServer_HttpsGithubComDtsStnscrumPokerServerProduction : GitVcsRoot({
+    name = "https://github.com/DTS-STN/scrum-poker-server/tree/_production"
+    url = "git@github.com:DTS-STN/scrum-poker-server.git"
+    useTagsAsBranches = true
+    branch = "refs/heads/main"
+    branchSpec = "+:refs/tags/*"
     authMethod = uploadedKey {
         userName = "git"
         uploadedKey = "dtsrobot"
@@ -184,6 +198,67 @@ object Build_Dynamic: BuildType({
     triggers {
         vcs {
             branchFilter = "+:*"
+        }
+    }
+})
+
+object Build_Production: BuildType({
+    name = "Build_Production"
+    description = "Deploys a defacto production server on github release tag"
+    params {
+        param("teamcity.vcsTrigger.runBuildInNewEmptyBranch", "true")
+        param("env.PROJECT", "scrum-poker-server")
+        param("env.BASE_DOMAIN","bdm-dev.dts-stn.com")
+        param("env.SUBSCRIPTION", "%vault:dts-sre/data/azure!/decd-dev-subscription-id%")
+        param("env.K8S_CLUSTER_NAME", "ESdCDPSBDMK8SDev-K8S")
+        param("env.RG_DEV", "ESdCDPSBDMK8SDev")
+        param("env.TARGET", "prod")
+        param("env.BRANCH", "prod")
+    }
+    vcs {
+        root(Dev_ScrumPokerServer_HttpsGithubComDtsStnscrumPokerServerProduction)
+    }
+   
+    steps {
+        dockerCommand {
+            name = "Build & Tag Docker Image"
+            commandType = build {
+                source = file {
+                    path = "Dockerfile"
+                }
+                namesAndTags = "%env.ACR_DOMAIN%/%env.PROJECT%:%env.DOCKER_TAG%"
+                commandArgs = "--pull --build-arg TC_BUILD=%build.number%"
+            }
+        }
+        script {
+            name = "Login to Azure and ACR"
+            scriptContent = """
+                az login --service-principal -u %TEAMCITY_USER% -p %TEAMCITY_PASS% --tenant %env.TENANT-ID%
+                az account set -s %env.SUBSCRIPTION%
+                az acr login -n MTSContainers
+            """.trimIndent()
+        }
+        dockerCommand {
+            name = "Push Image to ACR"
+            commandType = push {
+                namesAndTags = "%env.ACR_DOMAIN%/%env.PROJECT%:%env.DOCKER_TAG%"
+            }
+        }
+        script {
+            name = "Deploy w/ Helmfile"
+            scriptContent = """
+                cd ./helmfile
+                az account set -s %env.SUBSCRIPTION%
+                az aks get-credentials --admin --overwrite-existing --resource-group %env.RG_DEV% --name %env.K8S_CLUSTER_NAME%
+                helmfile -e %env.TARGET% apply
+            """.trimIndent()
+        }
+    }
+    triggers {
+        vcs {
+            branchFilter = """
+                    -:refs/heads/main
+                 """.trimIndent()
         }
     }
 })
