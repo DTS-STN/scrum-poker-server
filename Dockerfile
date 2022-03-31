@@ -1,15 +1,29 @@
 # Uses the node base image with the latest LTS version
 FROM node:current-alpine3.15
+#Adding non root user
+SHELL ["/bin/sh", "-c"]
+RUN apk add --no-cache bash
+ARG user=joker
+ARG home=/home/$user
+ARG group=thejokers
+RUN addgroup -S $group
+RUN adduser \
+    --disabled-password \
+    --gecos "" \
+    --home $home \
+    --ingroup $group \
+    $user
+
+USER $user
 # Informs Docker that the container listens on the 
 # specified network ports at runtime
 EXPOSE 4000
 # Copies index.js and the two package files from the local 
 # directory to a new app directory on the container
-COPY server.js package.json package-lock.json app/
-COPY ./api/ app/api/
-COPY ./datasets/ app/datasets/
-# Changes working directory to the new directory just created
-WORKDIR /app
+COPY --chown=55:$group server.js package.json package-lock.json $home/
+COPY --chown=55:$group ./api/ $home/api/
+COPY --chown=55:$group ./datasets/ $home/datasets/
+WORKDIR $home
 # Installs npm dependencies on container
 RUN npm ci
 # Command container will actually run when called
