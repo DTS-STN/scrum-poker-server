@@ -74,7 +74,10 @@ object Dev_ScrumPokerServer_HttpsGithubComDtsStnscrumPokerServerProduction : Git
     url = "git@github.com:DTS-STN/scrum-poker-server.git"
     useTagsAsBranches = true
     branch = "refs/heads/main"
-    branchSpec = "+:refs/tags/*"
+    branchSpec = """
+                    +:refs/tags/*
+                    +:refs/heads/release/*
+                """.trimIndent()
     authMethod = uploadedKey {
         userName = "git"
         uploadedKey = "dtsrobot"
@@ -269,7 +272,7 @@ object Build_Production: BuildType({
                 minute = 15
                 timezone = "America/New_York"
             }  
-            branchFilter = "+:refs/heads/release/latest"
+            branchFilter = "+:latest"
             triggerBuild = always()
             withPendingChangesOnly = false
             triggerBuildOnAllCompatibleAgents = true
