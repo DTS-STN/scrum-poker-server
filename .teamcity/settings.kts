@@ -76,7 +76,7 @@ object Dev_ScrumPokerServer_HttpsGithubComDtsStnscrumPokerServerProduction : Git
     branch = "refs/heads/main"
     branchSpec = """
                     +:refs/tags/*
-                    +:refs/heads/release/*
+                    +:refs/heads/*/*
                 """.trimIndent()
     authMethod = uploadedKey {
         userName = "git"
