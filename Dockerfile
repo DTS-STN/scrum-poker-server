@@ -1,5 +1,4 @@
-# Uses the node base image with the latest LTS version
-FROM node:current-alpine3.15
+FROM node:17.8-alpine3.15 AS base
 #Adding non root user
 SHELL ["/bin/sh", "-c"]
 RUN apk add --no-cache bash
