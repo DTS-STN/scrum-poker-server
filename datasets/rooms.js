@@ -18,7 +18,7 @@ function getRooms() {
 }
 
 function getRoomByID(id) {
-  return rooms.find((room) => room.id === id);
+  return rooms.find((room) => room.id === id.toUpperCase());
 }
 
 function addRoom(userid) {
@@ -28,7 +28,7 @@ function addRoom(userid) {
     id = Math.random().toString(36).slice(-5);
   }
   const room = {
-    id: id,
+    id: id.toUpperCase(),
     host: Number(userid),
     users: [Number(userid)],
     isShown: false,
@@ -58,11 +58,10 @@ function addUserToRoom(roomid, userid) {
 
 function deleteRoom(id) {
   if (getRoomByID(id) == undefined) {
-    //Author with given ID Does Not Exist
     return false;
   }
 
-  const index = rooms.findIndex((room) => room.id === id);
+  const index = rooms.findIndex((room) => room.id === id.toUpperCase());
   rooms.splice(index, 1);
   return true;
 }
