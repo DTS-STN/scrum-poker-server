@@ -21,9 +21,10 @@ export default {
       return { success: false, message: "Failed to add room" };
     }
   },
-  updateRoom: async (_, { id, users, isShown }) => {
+  updateRoom: async (_, { id, users, isShown, timer }) => {
+    console.log('update room', id, users, isShown, timer )
     try {
-      if (updateRoom(id, users, isShown)) {
+      if (updateRoom(id, users, isShown, timer)) {
         const room = getRoomByID(id)
         pubsub.publish("ROOM_UPDATED", {
           roomUpdated: room
