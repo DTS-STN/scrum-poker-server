@@ -74,7 +74,9 @@ object Dev_ScrumPokerServer_HttpsGithubComDtsStnscrumPokerServerProduction : Git
     url = "git@github.com:DTS-STN/scrum-poker-server.git"
     useTagsAsBranches = true
     branch = "refs/heads/main"
-    branchSpec = "+:refs/tags/*"
+    branchSpec = """
+                    +:refs/tags/*
+                """.trimIndent()
     authMethod = uploadedKey {
         userName = "git"
         uploadedKey = "dtsrobot"
@@ -146,6 +148,7 @@ object Build_Release: BuildType({
 object Build_Dynamic: BuildType({
     name = "Build_Dynamic"
     description = "Dynamic branching; builds and deploys every branch"
+    paused = true
     params {
         param("teamcity.vcsTrigger.runBuildInNewEmptyBranch", "true")
         param("env.PROJECT", "scrum-poker-server")
@@ -257,8 +260,21 @@ object Build_Production: BuildType({
     triggers {
         vcs {
             branchFilter = """
+                    +:*
                     -:refs/heads/main
                  """.trimIndent()
+        }
+        schedule {
+            schedulingPolicy = weekly {
+                dayOfWeek = ScheduleTrigger.DAY.Saturday
+                hour = 14
+                minute = 15
+                timezone = "America/New_York"
+            }  
+            branchFilter = "+:latest"
+            triggerBuild = always()
+            withPendingChangesOnly = false
+            triggerBuildOnAllCompatibleAgents = true
         }
     }
 })
