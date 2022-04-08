@@ -4,12 +4,20 @@ let rooms = [
     host: 1,
     users: [1, 2],
     isShown: true,
+    timer: {
+      timestamp: null,
+      duration: null
+    }
   },
   {
     id: "10101",
     host: 3,
     users: [3],
     isShown: false,
+    timer: {
+      timestamp: null,
+      duration: null
+    }
   },
 ];
 
@@ -32,16 +40,21 @@ function addRoom(userid) {
     host: Number(userid),
     users: [Number(userid)],
     isShown: false,
+    timer: {
+      timeStamp: null,
+      duration: null
+    }
   };
   rooms.push(room);
   return room;
 }
 
-function updateRoom(id, users, isShown) {
+function updateRoom(id, users, isShown, timer) {
   let room = getRoomByID(id);
   if (room) {
     room.users = users.map((i) => Number(i));
     room.isShown = isShown;
+    room.timer = timer
     return true;
   }
   return false;
