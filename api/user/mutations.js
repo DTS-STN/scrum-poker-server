@@ -29,8 +29,8 @@ export default {
       return { success: false, message: "Failed to update user" };
     }
   },
-  deleteUser: async (_, { userInput }) => {
-    if (deleteUser(userInput.id)) {
+  deleteUser: async (_, { id }) => {
+    if (deleteUser(id)) {
       return { success: true, message: "User deleted" };
     } else {
       return { success: false, message: "Failed to delete user" };

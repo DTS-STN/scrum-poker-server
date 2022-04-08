@@ -12,7 +12,7 @@ const UserQueries = `
 const UserMutations = `
   addUser(name: String, card: Int, room: ID): Response
   updateUser(userInput: UserInput): Response
-  deleteUser(userInput: UserInput): Response
+  deleteUser(id: ID!): Response
 `;
 
 export default `
