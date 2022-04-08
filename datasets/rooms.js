@@ -55,8 +55,6 @@ function updateRoom(id, users, isShown, timer) {
     room.users = users.map((i) => Number(i));
     room.isShown = isShown;
     room.timer = timer
-    console.log('room', room, timer);
-
     return true;
   }
   return false;

@@ -1,6 +1,6 @@
 const TimerField = `
   timestamp: String
-  duration: Int
+  duration: Float
   `
 const RoomFields = `
   id: ID!
