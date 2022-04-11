@@ -5,7 +5,7 @@ let messages = [
     name: "Alexa",
     content: "Hey siri play Luis Miguel el concierto",
     edited: false,
-    roomId: "R1490849"
+    roomId: "R1490849",
   },
   {
     id: "41490849",
@@ -13,7 +13,7 @@ let messages = [
     name: "Siri",
     content: "Playing Luis MIguel el concierto from spotify",
     edited: false,
-    roomId: "R1490849"
+    roomId: "R1490849",
   },
 ];
 
@@ -27,7 +27,8 @@ function getMessageByID(id) {
 
 //Adds a message
 function addMessage(roomId, name, content) {
-  let id = new Date().getUTCMilliseconds() + Math.random().toString(10).slice(-5);
+  let id =
+    new Date().getUTCMilliseconds() + Math.random().toString(10).slice(-5);
 
   const message = {
     id: id,
@@ -46,7 +47,7 @@ function updateMessage(roomId, id, content) {
   let message = getMessageByID(id);
   if (message && message.roomId === roomId) {
     message.content = content;
-    message.edited = true
+    message.edited = true;
     return true;
   }
   return false;
@@ -59,9 +60,18 @@ function deleteMessage(roomId, id) {
     return false;
   }
 
-  const index = messages.findIndex((message) => message.id === id && message.roomId === roomId);
+  const index = messages.findIndex(
+    (message) => message.id === id && message.roomId === roomId
+  );
   messages.splice(index, 1);
   return true;
 }
 
-export { messages, getMessages, getMessageByID, addMessage, updateMessage, deleteMessage };
+export {
+  messages,
+  getMessages,
+  getMessageByID,
+  addMessage,
+  updateMessage,
+  deleteMessage,
+};

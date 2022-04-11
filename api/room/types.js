@@ -1,13 +1,14 @@
 const TimerField = `
   timestamp: String
   duration: Float
-  `
+  `;
 const RoomFields = `
   id: ID!
   host: User
   users: [User]
   isShown: Boolean!
   timer: Timer
+  cards: [Int]
 `;
 
 const RoomQueries = `
@@ -15,8 +16,8 @@ const RoomQueries = `
 `;
 
 const RoomMutations = `
-  addRoom(userid: ID!): Response
-  updateRoom(id: ID!, users: [ID], isShown: Boolean!, timer: TimerInput): Response
+  addRoom(userid: ID!, cards: [Int]): Response
+  updateRoom(id: ID!, users: [ID], isShown: Boolean!, timer: TimerInput, cards: [Int]): Response
   deleteRoom(id: ID!): Response
   addUserToRoom(userid: ID!, roomid: ID!) : Response
 `;
