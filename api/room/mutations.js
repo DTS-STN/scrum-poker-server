@@ -9,6 +9,12 @@ import { pubsub } from "../graphql/pubsub.js";
 
 export default {
   addRoom: async (_, { userid, cards }) => {
+
+    // assign a default value ONLY when cards array is empty
+    if (cards == undefined || cards == null) {
+      cards = [1, 2, 3, 5, 8, 13, 20, 1000]
+    }
+
     const room = addRoom(userid, cards);
     if (room) {
       return {
