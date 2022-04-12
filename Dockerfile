@@ -5,6 +5,9 @@ RUN apk add --no-cache bash
 ARG user=joker
 ARG home=/home/$user
 ARG group=thejokers
+ARG RATE_LIMIT_TIME=10
+ARG RATE_LIMIT_MAX=1000
+ARG RATE_LIMIT_MESSAGE='Too many requests, please try again later.'
 RUN addgroup -S $group
 RUN adduser \
     --disabled-password \
