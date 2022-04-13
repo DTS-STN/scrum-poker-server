@@ -271,7 +271,7 @@ object Build_Production: BuildType({
                 minute = 15
                 timezone = "America/New_York"
             }  
-            branchFilter = "+:latest"
+            branchFilter = "+:latest*"
             triggerBuild = always()
             withPendingChangesOnly = false
             triggerBuildOnAllCompatibleAgents = true
