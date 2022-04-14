@@ -2,8 +2,8 @@ import { addUser, updateUser, deleteUser } from "../../datasets/users.js";
 import { pubsub } from "../graphql/pubsub.js";
 
 export default {
-  addUser: async (_, { name, card, room }) => {
-    const user = addUser(name, card, room);
+  addUser: async (_, { name, card, room, color }) => {
+    const user = addUser(name, card, room, color);
     if (user) {
       pubsub.publish("USER_MODIFIED", {
         userModified: user,
