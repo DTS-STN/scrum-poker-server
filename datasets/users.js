@@ -4,18 +4,21 @@ let users = [
     name: "Tommy",
     card: 3,
     room: "85723",
+    color: "#1209A7"
   },
   {
     id: 2,
     name: "Ben",
     card: null,
     room: "85723",
+    color: "#D2A9A7"
   },
   {
     id: 3,
     name: "Curtis",
     card: null,
     room: 10101,
+    color: "#C205D7"
   },
 ];
 
@@ -27,7 +30,7 @@ function getUserByID(id) {
   return users.find((user) => user.id === Number(id));
 }
 
-function addUser(name, card, room) {
+function addUser(name, card, room, color) {
   //Generate ids until a unique id is found
   let id = Math.floor(Math.random() * 90000) + 10000;
   while (getUserByID(id) !== undefined) {
@@ -38,6 +41,7 @@ function addUser(name, card, room) {
     name: name,
     card: card,
     room: room,
+    color: color,
   };
   users.push(user);
   return user;

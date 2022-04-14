@@ -3,6 +3,7 @@ const UserFields = `
   name: String
   card: Int
   room: ID
+  color: String
 `;
 
 const UserQueries = `
@@ -10,7 +11,7 @@ const UserQueries = `
 `;
 
 const UserMutations = `
-  addUser(name: String, card: Int, room: ID): Response
+  addUser(name: String, card: Int, room: ID, color: String): Response
   updateUser(userInput: UserInput): Response
   deleteUser(id: ID!): Response
 `;
