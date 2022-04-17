@@ -1,5 +1,6 @@
 import {
   messages,
+  getRoomMessages,
   addMessage,
   updateMessage,
   deleteMessage,
@@ -11,7 +12,9 @@ export default {
   addMessage: async (_, { roomId, name, content }, context) => {
     const Message = addMessage(roomId, name, content);
     if (Message) {
-      pubsub.publish(["MESSAGES"], { messages: messages });
+      const roomMessages = getRoomMessages(roomId)
+      console.log(' addMessage roomMessages = ', roomMessages)
+      pubsub.publish(["MESSAGES"], { roomMessages: roomMessages });
       return {
         success: true,
         message: "Message added",

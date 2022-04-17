@@ -11,7 +11,7 @@ let messages = [
     id: "41490849",
     userId: "U1490847",
     name: "Siri",
-    content: "Playing Luis MIguel el concierto from spotify",
+    content: "Playing Luis Miguel el concierto from spotify",
     edited: false,
     roomId: "R1490849",
   },
@@ -19,6 +19,10 @@ let messages = [
 
 function getMessages() {
   return messages;
+}
+
+function getRoomMessages(roomId) {
+  return messages.filter((message) => message.roomId === roomId);
 }
 
 function getMessageByID(id) {
@@ -70,6 +74,7 @@ function deleteMessage(roomId, id) {
 export {
   messages,
   getMessages,
+  getRoomMessages,
   getMessageByID,
   addMessage,
   updateMessage,
