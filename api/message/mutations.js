@@ -13,7 +13,7 @@ export default {
     const Message = addMessage(roomId, name, content);
     if (Message) {
       const roomMessages = getRoomMessages(roomId)
-      console.log(' addMessage roomMessages = ', roomMessages)
+
       pubsub.publish(["MESSAGES"], { roomMessages: roomMessages });
       return {
         success: true,
