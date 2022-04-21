@@ -7,7 +7,8 @@ const MessageFields = `
 `;
 
 const MessageQueries = `
-  messages: [Message!]
+  messages: [Message!],
+  roomMessages(roomId: ID!) : [Message!],
 `;
 
 const MessageMutations = `
@@ -30,6 +31,7 @@ export default `
   }
   
   type Subscription {
-    messages: [Message!]
+    messages: [Message!],
+    roomMessages(roomId: ID!): [Message!]
   }
   `;
