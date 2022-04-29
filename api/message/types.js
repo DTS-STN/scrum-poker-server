@@ -4,18 +4,18 @@ const MessageFields = `
   content: String!
   edited: Boolean!
   roomId: ID!
-`;
+`
 
 const MessageQueries = `
   messages: [Message!],
   roomMessages(roomId: ID!) : [Message!],
-`;
+`
 
 const MessageMutations = `
   addMessage(roomId: ID!, name: String!, content: String!): Response
   updateMessage(roomId: ID!, id: ID!, content: String!): Response
   deleteMessage(roomId: ID!, id: ID!): Response
-`;
+`
 
 export default `
   type Message {
@@ -34,4 +34,4 @@ export default `
     messages: [Message!],
     roomMessages(roomId: ID!): [Message!]
   }
-  `;
+  `

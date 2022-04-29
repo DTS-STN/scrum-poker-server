@@ -4,17 +4,17 @@ const UserFields = `
   card: Int
   room: ID
   color: String
-`;
+`
 
 const UserQueries = `
   users(id: ID): [User]
-`;
+`
 
 const UserMutations = `
   addUser(name: String, card: Int, room: ID, color: String): Response
   updateUser(userInput: UserInput): Response
   deleteUser(id: ID!): Response
-`;
+`
 
 export default `
   input UserInput{
@@ -31,4 +31,4 @@ export default `
   }
   type Subscription{
     userModified(room: ID): User
-  }`;
+  }`

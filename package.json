@@ -5,8 +5,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
     "lint": "prettier --write **/*.{js,jsx,ts,tsx,json,md}",
+    "test:unit": "jest",
+    "test:coverage": "jest --coverage --forceExit",
     "prepare": "husky install",
     "husky-pre-commit": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md}\" && git add -A .",
     "docker:build": "docker build -t scrum-poker-server:latest .",
@@ -28,6 +30,15 @@
     "ws": "^8.5.0"
   },
   "devDependencies": {
-    "husky": "^7.0.4"
+    "@babel/preset-env": "^7.16.11",
+    "@graphql-eslint/eslint-plugin": "^3.10.2",
+    "@types/jest": "^27.4.1",
+    "@types/node": "^17.0.25",
+    "babel-jest": "^27.5.1",
+    "eslint": "^8.13.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "husky": "^7.0.4",
+    "jest": "^27.5.1"
   }
 }
