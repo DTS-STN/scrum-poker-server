@@ -1,6 +1,6 @@
 let rooms = [
   {
-    id: "85723",
+    id: '85723',
     host: 1,
     users: [1, 2],
     cards: [1, 2, 3, 5, 8, 13, 20, 1000],
@@ -11,7 +11,7 @@ let rooms = [
     },
   },
   {
-    id: "10101",
+    id: '10101',
     host: 3,
     users: [3],
     cards: [1, 2, 3, 5, 8, 13, 20, 1000],
@@ -21,21 +21,30 @@ let rooms = [
       duration: null,
     },
   },
-];
+]
 
+/**
+ *
+ * @returns array of rooms
+ */
 function getRooms() {
-  return rooms;
+  return rooms
 }
 
+/**
+ *
+ * @param {Number} id
+ * @returns array
+ */
 function getRoomByID(id) {
-  return rooms.find((room) => room.id === id.toUpperCase());
+  return rooms.find((room) => room.id === id.toUpperCase())
 }
 
 function addRoom(userid, cards) {
   //Generate ids until a unique id is found
-  let id = Math.random().toString(36).slice(-5);
+  let id = Math.random().toString(36).slice(-5)
   while (getRoomByID(id) !== undefined) {
-    id = Math.random().toString(36).slice(-5);
+    id = Math.random().toString(36).slice(-5)
   }
   const room = {
     id: id.toUpperCase(),
@@ -47,47 +56,40 @@ function addRoom(userid, cards) {
       timeStamp: null,
       duration: null,
     },
-  };
-  rooms.push(room);
-  return room;
+  }
+  rooms.push(room)
+  return room
 }
 
 function updateRoom(id, users, isShown, timer, cards) {
-  let room = getRoomByID(id);
+  let room = getRoomByID(id)
   if (room) {
-    room.users = users.map((i) => Number(i));
-    room.cards = cards.map((i) => Number(i));
-    room.isShown = isShown;
-    room.timer = timer;
-    return true;
+    room.users = users.map((i) => Number(i))
+    room.cards = cards.map((i) => Number(i))
+    room.isShown = isShown
+    room.timer = timer
+    return true
   }
-  return false;
+  return false
 }
 
 function addUserToRoom(roomid, userid) {
-  let room = getRoomByID(roomid);
+  let room = getRoomByID(roomid)
   if (room) {
-    room.users.push(userid);
-    return true;
+    room.users.push(userid)
+    return true
   }
-  return false;
+  return false
 }
 
 function deleteRoom(id) {
   if (getRoomByID(id) == undefined) {
-    return false;
+    return false
   }
 
-  const index = rooms.findIndex((room) => room.id === id.toUpperCase());
-  rooms.splice(index, 1);
-  return true;
+  const index = rooms.findIndex((room) => room.id === id.toUpperCase())
+  rooms.splice(index, 1)
+  return true
 }
 
-export {
-  getRooms,
-  getRoomByID,
-  addRoom,
-  updateRoom,
-  deleteRoom,
-  addUserToRoom,
-};
+export { getRooms, getRoomByID, addRoom, updateRoom, deleteRoom, addUserToRoom }

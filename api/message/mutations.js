@@ -4,44 +4,44 @@ import {
   addMessage,
   updateMessage,
   deleteMessage,
-} from "../../datasets/messages.js";
-import { pubsub } from "../graphql/pubsub.js";
+} from '../../datasets/messages.js'
+import { pubsub } from '../graphql/pubsub.js'
 
 export default {
   //
   addMessage: async (_, { roomId, name, content }, context) => {
-    const Message = addMessage(roomId, name, content);
+    const Message = addMessage(roomId, name, content)
     if (Message) {
       const roomMessages = getRoomMessages(roomId)
 
-      pubsub.publish(["MESSAGES"], { roomMessages: roomMessages });
+      pubsub.publish(['MESSAGES'], { roomMessages: roomMessages })
       return {
         success: true,
-        message: "Message added",
+        message: 'Message added',
         id: Message.id,
-      };
+      }
     } else {
-      return { success: false, message: "Failed to add Message" };
+      return { success: false, message: 'Failed to add Message' }
     }
   },
   //
   updateMessage: async (_, { roomId, id, content }, context) => {
     if (updateMessage(roomId, id, content)) {
-      pubsub.publish(["MESSAGES"], { messages: messages });
+      pubsub.publish(['MESSAGES'], { messages: messages })
 
-      return { success: true, message: "Message updated" };
+      return { success: true, message: 'Message updated' }
     } else {
-      return { success: false, message: "Failed to update Message" };
+      return { success: false, message: 'Failed to update Message' }
     }
   },
   //
   deleteMessage: async (_, { roomId, id }) => {
     if (deleteMessage(roomId, id)) {
-      pubsub.publish(["MESSAGES"], { messages: messages });
+      pubsub.publish(['MESSAGES'], { messages: messages })
 
-      return { success: true, message: "Message deleted" };
+      return { success: true, message: 'Message deleted' }
     } else {
-      return { success: false, message: "Failed to delete Message" };
+      return { success: false, message: 'Failed to delete Message' }
     }
   },
-};
+}
